@@ -3,7 +3,7 @@ import { Element, ElementUtils } from './element';
 import NodeError from './error';
 
 export type OptionalNode = Node | null;
-
+export type NodeId = string | number;
 interface TokenMetadata {
   line: number;
   column: number;
@@ -11,25 +11,25 @@ interface TokenMetadata {
 }
 
 interface NodeParams {
+  id?: NodeId;
   value: string;
   element: ElementType;
   parent?: OptionalNode;
   children?: Node[];
-  id?: string;
   index?: number;
   metadata?: TokenMetadata;
 }
 
 export interface SerializedNode {
-  id: string;
+  id: NodeId;
   value: string;
   el: ElementType;
-  pid: string | null;
-  children: string[];
+  pid: NodeId | null;
+  children: NodeId[];
 }
 
 class Node {
-  readonly id: string;
+  readonly id: NodeId;
   readonly value: string;
   readonly element: ElementType;
   readonly metadata: TokenMetadata;
@@ -99,7 +99,7 @@ class Node {
     return hasChanges ? transformedNode.update({ children: newChildren }) : transformedNode;
   }
 
-  findById(id: string): OptionalNode {
+  findById(id: NodeId): OptionalNode {
     if (this.id === id) return this;
 
     for (const child of this.children) {
@@ -169,7 +169,7 @@ class Node {
     });
   }
 
-  updateById(id: string, updater: (node: Node) => Partial<NodeParams>): Node {
+  updateById(id: NodeId, updater: (node: Node) => Partial<NodeParams>): Node {
     return this.map((node) => {
       if (node.id === id) {
         return node.update(updater(node));
@@ -255,8 +255,8 @@ class Node {
 
   static deserialize(nodes: SerializedNode[]): Node {
     const rootId = nodes[0].id;
-    const nodeMap = new Map<string, SerializedNode>();
-    const childrenMap = new Map<string, string[]>();
+    const nodeMap = new Map<NodeId, SerializedNode>();
+    const childrenMap = new Map<NodeId, NodeId[]>();
 
     // Build maps for quick lookup
     for (const n of nodes) {
@@ -268,7 +268,7 @@ class Node {
     }
 
     // Recursive function to build immutable Node tree
-    const buildNode = (id: string, parent: OptionalNode = null): Node => {
+    const buildNode = (id: NodeId, parent: OptionalNode = null): Node => {
       const record = nodeMap.get(id)!;
       const childrenIds = childrenMap.get(id) || [];
       const children = childrenIds.map((childId) => buildNode(childId));
@@ -284,8 +284,9 @@ class Node {
     return buildNode(rootId);
   }
 
-  static initRoot(): Node {
+  static initRoot(id: NodeId): Node {
     return new Node({
+      id,
       value: '',
       element: Element.ROOT,
       index: 0,
