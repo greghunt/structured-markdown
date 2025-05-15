@@ -1,0 +1,59 @@
+{
+  "name": "structured-markdown",
+  "version": "1.0.0",
+  "description": "A semantically structured markdown parser",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/*"
+      ]
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "vitest",
+    "test:watch": "vitest watch",
+    "prepublishOnly": "npm run build",
+    "clean": "rimraf dist",
+    "demo": "cd demo && pnpm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/greghunt/structured-markdown.git"
+  },
+  "keywords": [
+    "markdown",
+    "parser",
+    "semantic",
+    "structured"
+  ],
+  "author": "Greg Hunt",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/greghunt/structured-markdown/issues"
+  },
+  "homepage": "https://github.com/greghunt/structured-markdown#readme",
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4",
+    "@types/node": "^20.17.47",
+    "rimraf": "^5.0.10",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.3"
+  },
+  "dependencies": {
+    "uuid": "^11.1.0"
+  }
+}
