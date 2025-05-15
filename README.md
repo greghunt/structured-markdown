@@ -11,3 +11,7 @@ This parser creates a hierarchical tree that makes this implied semantic hierarc
 ## Missing Element
 
 We've introduced a "Sentence" level markdown element, not present in HTML or MD. A sentence is a discreet and very important semantic unit, since it composes all other larger order semantic elements. A paragraph is a collection of sentences, a heading is a collection of paragraphs, etc.
+
+## Incremental Parsing
+
+The parser is designed to be incrementally applied to a markdown text. It can be used to parse a markdown text from the beginning, or continue parsing from a given position. This is important if we want to make the structure "stateful" and not lose the state of any unmodified nodes. This is useful if we want to persist the nodes and they contain a reference ID.
