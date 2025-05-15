@@ -1,6 +1,6 @@
 # Structured Markdown
 
-A parser that creates semantically structures Markdown into a hierarchical tree of markdown nodes.
+A parser that semantically structures Markdown into a hierarchical tree of markdown element nodes.
 
 ## Why?
 
