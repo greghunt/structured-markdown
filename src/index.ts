@@ -1,8 +1,6 @@
 import { ParseError } from './error';
-import Node, { type Node as NodeType, type NodeId } from './node';
+import Node, { type NodeId } from './node';
 import Tokenizer, { type Token } from './tokenize';
-
-export type { NodeType as Node };
 
 type GenerateId = (previousId?: NodeId) => NodeId;
 

@@ -1,6 +1,6 @@
 {
   "name": "structured-markdown",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A semantically structured markdown parser",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,6 +9,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.js",
+      "require": "./dist/*.js"
     }
   },
   "typesVersions": {

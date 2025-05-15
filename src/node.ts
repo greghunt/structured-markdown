@@ -4,6 +4,7 @@ import NodeError from './error';
 
 export type OptionalNode = Node | null;
 export type NodeId = string | number;
+
 interface TokenMetadata {
   line: number;
   column: number;
@@ -295,5 +296,3 @@ class Node {
 }
 
 export default Node;
-
-export type { Node };
